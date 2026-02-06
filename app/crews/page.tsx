@@ -235,6 +235,22 @@ export default function AllCrewsPage() {
               My Dashboard
             </Link>
           )}
+          <Link href="/scale" style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 6,
+            padding: '10px 16px',
+            minHeight: 44,
+            background: 'white',
+            border: '1px solid rgba(0,0,0,0.15)',
+            borderRadius: 8,
+            color: '#000',
+            textDecoration: 'none',
+            fontSize: 14,
+            fontWeight: 600,
+          }}>
+            Global View
+          </Link>
           <Link href="/manuals" style={{
             display: 'inline-flex',
             alignItems: 'center',

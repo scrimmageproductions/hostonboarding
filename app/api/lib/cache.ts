@@ -4,6 +4,7 @@ import { kv } from "@vercel/kv";
 const DEFAULT_TTL = 60 * 10; // 10 minutes in seconds
 const TASK_LINKS_TTL = 60 * 30; // 30 minutes for task links (less volatile)
 const CREW_MAPPINGS_TTL = 60 * 5; // 5 minutes for crew mappings
+const MEMBERS_TTL = 60 * 10; // 10 minutes for member data
 
 // In-memory fallback for local development (when KV is not configured)
 const memoryCache = new Map<string, { value: unknown; expiresAt: number }>();
@@ -90,4 +91,5 @@ export const CACHE_TTL = {
   DEFAULT: DEFAULT_TTL,
   TASK_LINKS: TASK_LINKS_TTL,
   CREW_MAPPINGS: CREW_MAPPINGS_TTL,
+  MEMBERS: MEMBERS_TTL,
 };
