@@ -144,14 +144,14 @@ export async function GET() {
 
     for (let ri = 0; ri < Math.min(rows.length, 100); ri++) {
       const rowCells = rows[ri]?.c || [];
-      const rowVals = rowCells.map((c: any) => String(c?.v || c?.f || "").trim().toLowerCase());
+      const rowVals = rowCells.map((c: { v?: unknown; f?: unknown }) => String(c?.v || c?.f || "").trim().toLowerCase());
 
       const hasName = rowVals.includes("name");
       const hasCity = rowVals.includes("city");
 
       if (hasName && hasCity) {
         headerRowIdx = ri;
-        headerRowVals = rowCells.map((c: any) => String(c?.v || c?.f || "").trim());
+        headerRowVals = rowCells.map((c: { v?: unknown; f?: unknown }) => String(c?.v || c?.f || "").trim());
         break;
       }
     }
@@ -161,7 +161,7 @@ export async function GET() {
     }
 
     const headerMap = new Map<string, number>();
-    headerRowVals.forEach((h, i) => {
+    headerRowVals.forEach((h: string, i: number) => {
       if (h) headerMap.set(h.toLowerCase(), i);
     });
 
@@ -234,9 +234,9 @@ export async function GET() {
     await cacheSet(cacheKey, result, CACHE_TTL.MEMBERS);
 
     return NextResponse.json(result);
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
-      { error: error?.message || "Failed to load members" },
+      { error: error instanceof Error ? error.message : "Failed to load members" },
       { status: 500 }
     );
   }

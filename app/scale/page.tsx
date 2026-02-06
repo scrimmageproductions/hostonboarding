@@ -4,7 +4,7 @@ import { useEffect, useState, useRef, useMemo } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { Inter } from 'next/font/google'
-import { BarChart, Bar, PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, XAxis, YAxis } from 'recharts'
+import { BarChart, Bar, PieChart, Pie, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -58,7 +58,7 @@ export default function ScalePage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [heatMapMode, setHeatMapMode] = useState<string | null>(null)
-  const globeEl = useRef<any>()
+  const globeEl = useRef<{ controls: () => { autoRotate: boolean; autoRotateSpeed: number } } | undefined>()
 
   useEffect(() => {
     async function fetchMembers() {
@@ -67,8 +67,8 @@ export default function ScalePage() {
         if (!res.ok) throw new Error('Failed to load members')
         const data = await res.json()
         setMembers(data.members || [])
-      } catch (e: any) {
-        setError(e?.message || 'Failed to load data')
+      } catch (e: unknown) {
+        setError(e instanceof Error ? e.message : 'Failed to load data')
       } finally {
         setLoading(false)
       }
@@ -83,7 +83,7 @@ export default function ScalePage() {
       controls.autoRotate = true
       controls.autoRotateSpeed = 0.5
     }
-  }, [globeEl.current])
+  }, [])
 
   const stats = useMemo(() => {
     const cityCounts = new Map<string, number>()
@@ -129,7 +129,7 @@ export default function ScalePage() {
       }
     })
 
-    return Array.from(cityMap.entries()).map(([key, cityMembers]) => {
+    return Array.from(cityMap.entries()).map(([, cityMembers]) => {
       const first = cityMembers[0]
 
       let color = '#ffffff'
