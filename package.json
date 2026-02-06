@@ -14,6 +14,7 @@
   "dependencies": {
     "@cloudflare/blindrsa-ts": "^0.4.4",
     "@neondatabase/serverless": "^1.0.2",
+    "@netlify/plugin-nextjs": "^5.15.7",
     "@prisma/adapter-neon": "^7.2.0",
     "@prisma/client": "^7.2.0",
     "@rainbow-me/rainbowkit": "^2.2.10",
