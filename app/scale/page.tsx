@@ -58,7 +58,7 @@ export default function ScalePage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [heatMapMode, setHeatMapMode] = useState<string | null>(null)
-  const globeEl = useRef<{ controls: () => { autoRotate: boolean; autoRotateSpeed: number } } | undefined>()
+  const globeEl = useRef<{ controls: () => { autoRotate: boolean; autoRotateSpeed: number } } | undefined>(undefined)
 
   useEffect(() => {
     async function fetchMembers() {
